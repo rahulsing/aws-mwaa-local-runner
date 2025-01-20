@@ -12,7 +12,6 @@ services:
         max-file: "3"
     volumes:
       - "${PWD}/db-data:/var/lib/postgresql/data"
-      - AWS_PROFILE=default # set your profile name
   local-runner:
     image: amazon/mwaa-local:2_10_3
     restart: always
@@ -21,7 +20,7 @@ services:
     environment:
       - LOAD_EX=n
       - EXECUTOR=Local
-      - 
+      - AWS_PROFILE=default # set your profile name
     logging:
       options:
         max-size: 10m
