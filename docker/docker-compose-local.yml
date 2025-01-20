@@ -12,7 +12,7 @@ services:
         max-file: "3"
     volumes:
       - "${PWD}/db-data:/var/lib/postgresql/data"
-
+      - AWS_PROFILE=default # set your profile name
   local-runner:
     image: amazon/mwaa-local:2_10_3
     restart: always
@@ -21,6 +21,7 @@ services:
     environment:
       - LOAD_EX=n
       - EXECUTOR=Local
+      - 
     logging:
       options:
         max-size: 10m
@@ -30,6 +31,7 @@ services:
       - "${PWD}/plugins:/usr/local/airflow/plugins"
       - "${PWD}/requirements:/usr/local/airflow/requirements"
       - "${PWD}/startup_script:/usr/local/airflow/startup"
+      - ~/.aws:/usr/local/airflow/.aws:ro  # read-only mount
     ports:
       - "8080:8080"
     command: local-runner
